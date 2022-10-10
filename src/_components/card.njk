@@ -1,0 +1,60 @@
+<div class="posts m-4">
+  <div class="article">
+    <div class="article-wrapper">
+      <div class="article-box">
+        <div class="article-dimensions">
+          <div class="article-main">
+            <div class="article-date">
+              <span class="published-at">{{ data.date | date('HUMAN_DATE') }}</span>
+            </div>
+            <div class="article-card">
+              <div class="article-content">
+                <div class="article-headings">
+                  <a href={{ data.url }}>
+                    <div class="article-title">
+                      <h1
+                          class="text text-2xl font-bold leading-10 tracking-tight"
+                        >
+                        {{ data.title }}
+                      </h1>
+                    </div>
+                    <div class="article-description">
+                      <p>{{ data.description }}</p>
+                    </div>
+                  </a>
+                </div>
+                <div class="article-meta">
+                  <ul class="flex gap-1 flex-wrap">
+                    {% for tag in data.tags %}
+                      {% set page = search.page("type=tag tag='" + tag + "'") %}
+                      {% if page %}
+                        <a href="{{ page.data.url  }}" class="tag">
+
+                          <li
+                        class="text-black tag-bg rounded p-2"
+                      >
+                            {{ tag }}
+                          </li>
+                        </a>
+                      {% endif %}
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+              {% if data.image %}
+                <div class="article-image">
+                  <img
+                    src={{ data.image | url }}
+                    width="112"
+                    height="112"
+                    alt="{{ data.title }}"
+/>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

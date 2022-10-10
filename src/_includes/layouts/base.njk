@@ -1,0 +1,36 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title or site.title }}</title>
+    <meta name="description" content="{{ description or site.description }}">
+    <meta name="keywords" content="HTML, CSS, JavaScript, Typescript, Docker, Node.js, devops, React, framework, full-stack">
+    <meta name="author" content="Mate Boer (BMZ)">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=PT+Serif&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body class="w-full h-full">
+    <nav class="navbar flex flex-wrap bg-black text-white h-16 items-center px-4 gap-y-4 gap-x-8">
+      <a href="/">
+        <strong class="text-lg heading">{{ site.title }}</strong>
+      </a>
+
+      <div class="grow max-w-3xl ml-auto w-0 sm:w-0 md:w-0 lg:w-full h-0 lg:h-auto invisible sm:invisible md:invisible lg:visible">
+        <div id="search"></div>
+      </div>
+    </nav>
+
+    <main class="{{ bodyClass }}">
+      {{ content | safe }}
+    </main>
+
+    <footer></footer>
+
+    <!-- Current page: {{ url }} -->
+  </body>
+</html>

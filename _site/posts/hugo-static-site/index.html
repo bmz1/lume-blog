@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Static site with Hugo + Netlify deploy</title>
+    <meta name="description" content="How to make a static site with Hugo and deploy it to Netlify">
+    <meta name="keywords" content="HTML, CSS, JavaScript, Typescript, Docker, Node.js, devops, React, framework, full-stack">
+    <meta name="author" content="Mate Boer (BMZ)">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link rel="stylesheet" href="/pagefind/pagefind-ui.css"><link href="https://fonts.googleapis.com/css2?family=Montserrat&amp;family=PT+Serif&amp;display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/styles.css">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Static site with Hugo + Netlify deploy">
+<meta property="og:description" content="How to make a static site with Hugo and deploy it to Netlify">
+<meta property="og:url" content="http://localhost:3000/posts/hugo-static-site/">
+<meta property="og:image" content="http://localhost:3000/img/static.jpg">
+<meta name="twitter:title" content="Static site with Hugo + Netlify deploy">
+<meta name="twitter:description" content="How to make a static site with Hugo and deploy it to Netlify">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://localhost:3000/img/static.jpg">
+<meta itemprop="name" content="Static site with Hugo + Netlify deploy">
+<meta itemprop="description" content="How to make a static site with Hugo and deploy it to Netlify">
+<meta itemprop="image" content="http://localhost:3000/img/static.jpg">
+<meta name="description" content="How to make a static site with Hugo and deploy it to Netlify">
+<style>*, ::before, ::after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: #e5e7eb;
+}
+* {
+  --tw-ring-inset: var(--tw-empty,/*!*/ /*!*/);
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgba(59, 130, 246, 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+}
+:root {
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+}
+:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+:-moz-ui-invalid {
+  box-shadow: none;
+}
+::moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+::-webkit-inner-spin-button, ::-webkit-outer-spin-button {
+  height: auto;
+}
+::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit;
+}
+[type='search'] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+abbr[title] {
+  -webkit-text-decoration: underline dotted;
+  text-decoration: underline dotted;
+}
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+body {
+  margin: 0;
+  font-family: inherit;
+  line-height: inherit;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  line-height: 1.5;
+}
+hr {
+  height: 0;
+  color: inherit;
+  border-top-width: 1px;
+}
+h1, p, h2, pre, hr {
+  margin: 0;
+}
+h1, h2 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+img {
+  border-style: solid;
+  display: block;
+  vertical-align: middle;
+  max-width: 100%;
+  height: auto;
+}
+pre, code {
+  font-size: 1em;
+  font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+}
+strong {
+  font-weight: bolder;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgba(0, 0, 0, var(--tw-bg-opacity));
+}
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+.flex-col {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+.flex-wrap {
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.items-center {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.font-bold {
+  font-weight: 700;
+}
+.h-full {
+  height: 100%;
+}
+.h-16 {
+  height: 4rem;
+}
+.h-0 {
+  height: 0px;
+}
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+.leading-10 {
+  line-height: 2.5rem;
+}
+.ml-auto {
+  margin-left: auto;
+}
+.mt-10 {
+  margin-top: 2.5rem;
+}
+.max-w-3xl {
+  max-width: 48rem;
+}
+.p-8 {
+  padding: 2rem;
+}
+.p-2 {
+  padding: 0.5rem;
+}
+.p-1 {
+  padding: 0.25rem;
+}
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
+}
+.tracking-tight {
+  letter-spacing: -0.025em;
+}
+.invisible {
+  visibility: hidden;
+}
+.w-full {
+  width: 100%;
+}
+.w-0 {
+  width: 0px;
+}
+.gap-x-8 {
+  -webkit-column-gap: 2rem;
+  -moz-column-gap: 2rem;
+  grid-column-gap: 2rem;
+  column-gap: 2rem;
+}
+.gap-y-4 {
+  -webkit-row-gap: 1rem;
+  -moz-row-gap: 1rem;
+  grid-row-gap: 1rem;
+  row-gap: 1rem;
+}
+@media (min-width: 640px) {
+  .sm\:invisible {
+    visibility: hidden;
+  }
+  .sm\:w-0 {
+    width: 0px;
+  }
+}
+@media (min-width: 768px) {
+  .md\:invisible {
+    visibility: hidden;
+  }
+  .md\:w-0 {
+    width: 0px;
+  }
+}
+@media (min-width: 1024px) {
+  .lg\:h-auto {
+    height: auto;
+  }
+  .lg\:visible {
+    visibility: visible;
+  }
+  .lg\:w-full {
+    width: 100%;
+  }
+}</style><script type="text/javascript" src="/pagefind/pagefind-ui.js"></script><script type="text/javascript">window.addEventListener('DOMContentLoaded', () => { new PagefindUI({"element":"#search","showImages":false,"showEmptyFilters":true,"resetStyles":false,"bundlePath":"/pagefind/","baseUrl":"/"}); });</script></head>
+  <body class="w-full h-full">
+    <nav class="flex flex-wrap bg-black text-white h-16 items-center px-4 gap-y-4 gap-x-8 navbar">
+      <a href="/">
+        <strong class="text-lg heading">bmzcodez.dev</strong>
+      </a>
+
+      <div class="max-w-3xl ml-auto w-0 sm:w-0 md:w-0 lg:w-full h-0 lg:h-auto invisible sm:invisible md:invisible lg:visible grow">
+        <div id="search"></div>
+      </div>
+    </nav>
+
+    <main class="body-post">
+      <article class="post" data-pagefind-body="">
+  <div class="flex flex-col items-center p-8">
+    <h1 class="text-2xl font-bold leading-10 tracking-tight text">
+      Static site with Hugo + Netlify deploy
+    </h1>
+    <nav class="post-tags">
+      
+        <a href="/tags/netlify/" class="p-2 tag-bg">netlify</a>
+      
+        <a href="/tags/hugo/" class="p-2 tag-bg">hugo</a>
+      
+    </nav>
+
+    <time class="p-1" datetime="2020-01-05 01:00:00">
+      January 5th, 2020
+    </time>
+    <article class="mt-10 w-full post-body" id="main">
+      <p>If you're wondering how to make a static site like this one, search no more.</p>
+<p>I had this thought before that it would be good to have developer blog, but I was lazy to make it. Until now...</p>
+<p>So what are the options in terms of static site generators?</p>
+<ul>
+<li>Gatsby (React)</li>
+<li>Hugo (Go)</li>
+<li>Next.js (React)</li>
+<li>Jekyll (Ruby)</li>
+<li>Gridsome (Vue)</li>
+</ul>
+<p>These are the most starred projects on GitHub. I've read about Hugo previously, so I decided to make this blog with it.</p>
+<h2>Install</h2>
+<p>Mac:</p>
+<pre><code class="language-bash hljs">brew install hugo
+</code></pre>
+<p>Linux:</p>
+<pre><code class="language-bash hljs">sudo apt-get install hugo
+
+or
+
+sudo pacman -Syu hugo
+</code></pre>
+<p>To verify your install:</p>
+<pre><code class="language-bash hljs">hugo version
+</code></pre>
+<h2>Usage</h2>
+<p>Create a new project:</p>
+<pre><code class="language-bash hljs">hugo new site my-project
+</code></pre>
+<p>Add a theme. You can find themes <a href="https://themes.gohugo.io/">here</a>.</p>
+<pre><code class="language-bash hljs"><span class="hljs-built_in">cd</span> my-project
+git init
+git submodule add https://github.com/budparr/gohugo-theme-ananke.git themes/ananke
+</code></pre>
+<p>Add the theme to the config file.</p>
+<pre><code>echo 'theme = "ananke"' &gt;&gt; config.toml
+</code></pre>
+<p>Add some content.</p>
+<pre><code class="language-bash hljs">hugo new posts/my-first-post.md
+</code></pre>
+<p>It should look something like this:</p>
+<pre><code>---
+title: "My First Post"
+date: 2020-01-05T18:37:11+01:00
+draft: true
+---
+
+Hello World!
+</code></pre>
+<p>There are lots of options (tags, description, categories, author) you can write to the front matter details.
+More about the details <a href="https://gohugo.io/content-management/front-matter/">here</a>.</p>
+<p>Take a look what we made:</p>
+<pre><code class="language-bash hljs">hugo server -D
+</code></pre>
+<p>Open <code>localhost:1313</code></p>
+<h2>Styling</h2>
+<p>Remember, we applied a theme before. Now if we inspect the <code>themes</code> folder, we can see the styling files.</p>
+<p>But surprise!
+<strong>DO NOT EDIT THESE FILES DIRECTLY</strong>.</p>
+<p>Instead we will mirror the theme directory structure to the root <code>layouts</code> folder.
+Let's say I want to apply custom CSS to the theme.</p>
+<p>The theme has a <code>themes/theme-name/layouts/partials</code> folder, where we can find some html templates (header.html, footer.html). Now we will edit the <code>header.html</code> template, so copy the content from this file to <code>layouts/partials/header.html</code> and be careful to create the same directory structure like the theme's into the root <code>layouts</code> folder.</p>
+<pre><code>layouts/partials/header.html
+
+themes/theme-name/layouts/partials/header.html
+</code></pre>
+<p>Create a custom css file: <code>static/css/custom-style.css</code>.</p>
+<p>Add the custom css file to <code>config.toml</code>:</p>
+<pre><code>[params]
+  custom_css = ["css/custom-style.css"]
+</code></pre>
+<p>Open <code>layouts/partials/header.html</code>:</p>
+<p>Add this code inside the <code>&lt;head&gt;</code> tag:</p>
+<pre><code class="language-html hljs language-xml">{{ range .Site.Params.custom_css -}}
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"{{ . | absURL }}"</span> /&gt;</span>
+{{- end }}
+</code></pre>
+<p>Now you can overwrite css classes applied by your theme.</p>
+<h2>Deploy</h2>
+<p>Netlify is a very good choice for hosting a static site.</p>
+<p>Requirements:</p>
+<ul>
+<li>Netlify account</li>
+<li>Github repository</li>
+</ul>
+<p>Create a <code>netlify.toml</code> file into the root of your project with the content below.</p>
+<p>I won't go into the smallest <a href="https://gohugo.io/hosting-and-deployment/hosting-on-netlify/">details</a> how to set up Github and Netlify on the UI, but here is a <code>netlify.toml</code> file:</p>
+<pre><code>[build]
+publish = "public"  // default hugo build folder
+command = "hugo --gc --minify" // hugo build command
+
+[context.production.environment]
+HUGO_VERSION = "0.62.1"
+HUGO_ENV = "production"
+HUGO_ENABLEGITINFO = "true"
+</code></pre>
+<p>Now if you push your code to Github, Netlify will deploy the site, and blogging shall start.</p>
+<p>Hugo offers so much more you should know about. Discover the official <a href="https://gohugo.io/documentation/">documentation</a>.</p>
+<p><img src="https://media1.giphy.com/media/3o84sq21TxDH6PyYms/giphy.gif?cid=790b7611f96ab1767b958080a2f06b34e1ed402337c52d48&amp;rid=giphy.gif" alt="Unlimited power"></p>
+
+    </article>
+  </div>
+
+
+
+</article>
+
+<hr>
+
+<nav class="post-navigation">
+<ul>
+    <li>
+      ← Previous: <a href="/posts/pdf-from-html-javascript/" rel="prev">Generating PDF from HTML with JavaScript</a>
+    </li>
+  
+    <li>
+      <strong>Next: <a href="/posts/getting-started-with-ansible/" rel="next">Getting Started With Ansible</a> →</strong>
+    </li>
+  
+</ul>
+</nav>
+
+    </main>
+
+    <footer></footer>
+
+    <!-- Current page: /posts/hugo-static-site/ -->
+  
+
+</body></html>

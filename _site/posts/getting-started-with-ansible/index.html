@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started With Ansible</title>
+    <meta name="description" content="A tutorial to help you understand the basics of Ansible - an open-source software provisioning, configuration management, and application-deployment tool. ">
+    <meta name="keywords" content="HTML, CSS, JavaScript, Typescript, Docker, Node.js, devops, React, framework, full-stack">
+    <meta name="author" content="Mate Boer (BMZ)">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link rel="stylesheet" href="/pagefind/pagefind-ui.css"><link href="https://fonts.googleapis.com/css2?family=Montserrat&amp;family=PT+Serif&amp;display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/styles.css">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Getting Started With Ansible">
+<meta property="og:description" content="A tutorial to help you understand the basics of Ansible - an open-source software provisioning, configuration management, and application-deployment tool">
+<meta property="og:url" content="http://localhost:3000/posts/getting-started-with-ansible/">
+<meta property="og:image" content="http://localhost:3000/img/ansible.webp">
+<meta name="twitter:title" content="Getting Started With Ansible">
+<meta name="twitter:description" content="A tutorial to help you understand the basics of Ansible - an open-source software provisioning, configuration management, and application-deployment tool">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://localhost:3000/img/ansible.webp">
+<meta itemprop="name" content="Getting Started With Ansible">
+<meta itemprop="description" content="A tutorial to help you understand the basics of Ansible - an open-source software provisioning, configuration management, and application-deployment tool">
+<meta itemprop="image" content="http://localhost:3000/img/ansible.webp">
+<meta name="description" content="A tutorial to help you understand the basics of Ansible - an open-source software provisioning, configuration management, and application-deployment tool">
+<style>*, ::before, ::after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: #e5e7eb;
+}
+* {
+  --tw-ring-inset: var(--tw-empty,/*!*/ /*!*/);
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgba(59, 130, 246, 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+}
+:root {
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+}
+:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+:-moz-ui-invalid {
+  box-shadow: none;
+}
+::moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+::-webkit-inner-spin-button, ::-webkit-outer-spin-button {
+  height: auto;
+}
+::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit;
+}
+[type='search'] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+abbr[title] {
+  -webkit-text-decoration: underline dotted;
+  text-decoration: underline dotted;
+}
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+body {
+  margin: 0;
+  font-family: inherit;
+  line-height: inherit;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  line-height: 1.5;
+}
+hr {
+  height: 0;
+  color: inherit;
+  border-top-width: 1px;
+}
+h1, p, h2, blockquote, h3, pre, hr {
+  margin: 0;
+}
+h1, h2, h3 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+pre, code {
+  font-size: 1em;
+  font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+}
+strong {
+  font-weight: bolder;
+}
+ul, ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgba(0, 0, 0, var(--tw-bg-opacity));
+}
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+.flex-col {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+.flex-wrap {
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.items-center {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.font-bold {
+  font-weight: 700;
+}
+.h-full {
+  height: 100%;
+}
+.h-16 {
+  height: 4rem;
+}
+.h-0 {
+  height: 0px;
+}
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+.leading-10 {
+  line-height: 2.5rem;
+}
+.ml-auto {
+  margin-left: auto;
+}
+.mt-10 {
+  margin-top: 2.5rem;
+}
+.max-w-3xl {
+  max-width: 48rem;
+}
+.p-8 {
+  padding: 2rem;
+}
+.p-2 {
+  padding: 0.5rem;
+}
+.p-1 {
+  padding: 0.25rem;
+}
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
+}
+.tracking-tight {
+  letter-spacing: -0.025em;
+}
+.invisible {
+  visibility: hidden;
+}
+.w-full {
+  width: 100%;
+}
+.w-0 {
+  width: 0px;
+}
+.gap-x-8 {
+  -webkit-column-gap: 2rem;
+  -moz-column-gap: 2rem;
+  grid-column-gap: 2rem;
+  column-gap: 2rem;
+}
+.gap-y-4 {
+  -webkit-row-gap: 1rem;
+  -moz-row-gap: 1rem;
+  grid-row-gap: 1rem;
+  row-gap: 1rem;
+}
+@media (min-width: 640px) {
+  .sm\:invisible {
+    visibility: hidden;
+  }
+  .sm\:w-0 {
+    width: 0px;
+  }
+}
+@media (min-width: 768px) {
+  .md\:invisible {
+    visibility: hidden;
+  }
+  .md\:w-0 {
+    width: 0px;
+  }
+}
+@media (min-width: 1024px) {
+  .lg\:h-auto {
+    height: auto;
+  }
+  .lg\:visible {
+    visibility: visible;
+  }
+  .lg\:w-full {
+    width: 100%;
+  }
+}</style><script type="text/javascript" src="/pagefind/pagefind-ui.js"></script><script type="text/javascript">window.addEventListener('DOMContentLoaded', () => { new PagefindUI({"element":"#search","showImages":false,"showEmptyFilters":true,"resetStyles":false,"bundlePath":"/pagefind/","baseUrl":"/"}); });</script></head>
+  <body class="w-full h-full">
+    <nav class="flex flex-wrap bg-black text-white h-16 items-center px-4 gap-y-4 gap-x-8 navbar">
+      <a href="/">
+        <strong class="text-lg heading">bmzcodez.dev</strong>
+      </a>
+
+      <div class="max-w-3xl ml-auto w-0 sm:w-0 md:w-0 lg:w-full h-0 lg:h-auto invisible sm:invisible md:invisible lg:visible grow">
+        <div id="search"></div>
+      </div>
+    </nav>
+
+    <main class="body-post">
+      <article class="post" data-pagefind-body="">
+  <div class="flex flex-col items-center p-8">
+    <h1 class="text-2xl font-bold leading-10 tracking-tight text">
+      Getting Started With Ansible
+    </h1>
+    <nav class="post-tags">
+      
+        <a href="/tags/ansible/" class="p-2 tag-bg">ansible</a>
+      
+        <a href="/tags/devops/" class="p-2 tag-bg">devops</a>
+      
+        <a href="/tags/raspberry/" class="p-2 tag-bg">raspberry</a>
+      
+        <a href="/tags/cloud/" class="p-2 tag-bg">cloud</a>
+      
+        <a href="/tags/infrastructure/" class="p-2 tag-bg">infrastructure</a>
+      
+    </nav>
+
+    <time class="p-1" datetime="2020-04-22 02:00:00">
+      April 22nd, 2020
+    </time>
+    <article class="mt-10 w-full post-body" id="main">
+      <p><strong>Co-author: Tamas Kadlecsik</strong></p>
+<p>After going through this tutorial, you’ll understand the basics of Ansible - an open-source software provisioning, configuration management, and application-deployment tool.</p>
+<p>First, we’ll discuss the Infrastructure as Code concept, and we’ll also take a thorough look at the currently available IaC tool landscape. Then, we’ll dive deep into what is Ansible, how it works, and what are the best practices for its installation and configuration. You’ll also learn how to automate your infrastructure with Ansible in an easy way.</p>
+<p><strong>Table of contents:</strong></p>
+<ul>
+<li>Understanding the Infrastructure as a Code concept</li>
+<li>What is Ansible?</li>
+<li>How to Install Ansible</li>
+<li>Ansible Setup</li>
+<li>Final words and further readings</li>
+</ul>
+<h2>What is Infrastructure as Code?</h2>
+<p><em>a.k.a understanding the IaC Concept</em></p>
+<p>Since the dawn of complex Linux server architectures, the way of configuring servers was either by using the command line, or by using bash scripts. However, the problem with bash scripts is that they are quite difficult to read, but more importantly, using bash scripts is a completely imperative way.</p>
+<p>When relying on bash scripts, implementation details or small differences between machine states can break the configuration process. There’s also the question of what happens if someone SSH-s into the server, configures something through the command line, then later someone would try to run a script, expecting the old state.</p>
+<p>The script might run successfully, simply break, or things could completely go haywire. No one can tell.</p>
+<p>To alleviate the pain caused by the drawbacks of defining our server configurations by bash scripts, we needed a declarative way to apply idempotent changes to the servers’ state, meaning that it does not matter how many times we run our script, it should always result in reaching the exact same expected state.</p>
+<blockquote>
+<p>This is the idea behind the Infrastructure as Code (IaC) concept: handling the state of infrastructure through idempotent changes, defined with an easily readable, domain-specific language.</p>
+</blockquote>
+<h3>What are these declarative approaches?</h3>
+<p>First, Puppet was born, then came Chef. Both of them were responses to the widespread adoption of using clusters of virtual machines that need to be configured together.</p>
+<p>Both Puppet and Chef follow the so-called “pull-based” method of configuration management. This means that you define the configuration - using their respective domain-specific language- which is stored on a server. When new machines are spun up, they need to have a configured client that pulls the configuration definitions from the server and applies it to itself.</p>
+<p>Using their domain-specific language was definitely clearer and more self-documenting than writing bash scripts. It is also convenient that they apply the desired configuration automatically after spinning up the machines.</p>
+<p>However, one could argue that the need for a preconfigured client makes them a bit clumsy. Also, the configuration of these clients is still quite complex, and if the master node which stores the configurations is down, all we can do is to fall back to the old command line / bash script method if we need to quickly update our servers.</p>
+<h2>To avoid a single point of failure, Ansible was created.</h2>
+<p>Ansible, like Puppet and Chef, sports a declarative, domain-specific language, but in contrast to them, Ansible follows a “push-based” method. That means that as long as you have Python installed, and you have an SSH server running on the hosts you wish to configure, you can run Ansible with no problem. We can safely say that expecting SSH connectivity from a server is definitely not inconceivable.</p>
+<blockquote>
+<p>Long story short, Ansible gives you a way to push your declarative configuration to your machines.</p>
+</blockquote>
+<p>Later came SaltStack. It also follows the push-based approach, but it comes with a lot of added features, and with it, a lot of added complexity both usage, and maintenance-wise.</p>
+<p><strong>Thus, while Ansible is definitely not the most powerful of the four most common solutions, it is hands down the easiest to get started with, and it should be sufficient to cover 99% of conceivable use-cases.</strong></p>
+<p>If you’re just getting started in the world of IaC, Ansible should be your starting point, so let’s stick with it for now.</p>
+<h3>Other IaC tools you should know about</h3>
+<p>While the above mentioned four (Pupper, Chef, Salt, Ansible) handles the configuration of individual machines in bulk, there are other IaC tools that can be used in conjunction with them. Let’s quickly list them for the sake of completeness, and so that you don’t get lost in the landscape.</p>
+<p><strong>Vagrant:</strong> It has been around for quite a while. Contrary to Puppet, Chef, Ansible, and Salt, Vagrant gives you a way to create blueprints of virtual machines. This also means that you can only create VMs using Vagrant, but you cannot modify them. So it can be a useful companion to your favorite configuration manager, to either set up their client, or SSH server, to get them started.</p>
+<p><strong>Terraform:</strong> Vagrant comes handy before you can use Ansible, if you maintain your own fleet of VMs. If you’re in the cloud, Terraform can be used to declaratively provision VMs, setup networks, or basically anything you can handle with the UI, API, or CLI of your favorite cloud provider. Feature support may vary, depending on the actual provider, and they mostly come with their own IaC solutions as well, but if you prefer not to be locked in to a platform, Terraform might be the best solution to go with.</p>
+<p><strong>Kubernetes:</strong> Container orchestration systems are considered Infrastructure as Code, as especially with Kubernetes, you have control over the internal network, containers, a lot of aspects of the actual machines, basically it’s more like an OS on it’s own right than anything. However, it requires you to have a running cluster of VMs with Kubernetes installed and configured.</p>
+<p>All in all, you can use either Vagrant or Terraform to lay the groundwork for your fleet of VMs, then use Ansible, Puppet, Chef or Salt to handle their configuration continuously. Finally, Kubernetes can give you a way to orchestrate your services on them.</p>
+<p>We’ve previously written a <a href="https://blog.risingstack.com/what-is-kubernetes-how-to-get-started/">lot about Kubernetes</a>, so this time we’ll take one step and take a look at our favorite remote configuration management tool: Ansible.</p>
+<h2>What is Ansible?</h2>
+<p>Let’s take apart what we already know:</p>
+<p>Ansible is a push-based IaC, providing a user-friendly domain-specific language so you can define your desired architecture in a declarative way.</p>
+<p>Being <strong>push-based means</strong> that Ansible uses SSH for communicating between the machine that runs Ansible and the machines the configuration is being applied to.</p>
+<p>The machines we wish to configure using Ansible are called <strong>managed nodes</strong> or <strong>hosts</strong>. In Ansible’s terminology, the list of hosts is called an <strong>inventory</strong>.</p>
+<p>The machine that reads the definition files and runs Ansible to push the configuration to the hosts is called a <strong>control node</strong>.</p>
+<h2>How to Install Ansible</h2>
+<p>It is enough to install Ansible only on one machine, the control node.</p>
+<p>Control node requirements are the following:</p>
+<ul>
+<li>Python 2 (version 2.7) or Python 3 (versions 3.5 and higher) installed</li>
+<li>Windows is not supported as a control node, but you can set it up on Windows 10 using <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">WSL</a></li>
+<li>Managed nodes also need Python to be installed.</li>
+</ul>
+<h3>RHEL and CentOS</h3>
+<pre><code class="language-bash hljs">sudo yum install ansible
+</code></pre>
+<h3>Debian based distros and WSL</h3>
+<pre><code class="language-bash hljs">sudo apt update
+sudo apt install software-properties-common
+sudo apt-add-repository --<span class="hljs-built_in">yes</span> --update ppa:ansible/ansible
+sudo apt install ansible
+</code></pre>
+<h3>MacOS</h3>
+<p>The preferred way to install Ansible on a Mac is via <code>pip</code>.</p>
+<pre><code class="language-bash hljs">pip install --user ansible
+</code></pre>
+<p>Run the following command to verify the installation:</p>
+<pre><code class="language-bash hljs">ansible --version
+</code></pre>
+<h2>Ansible Setup, Configuration, and Automation</h2>
+<p>For the purposes of this tutorial, we’ll set up a Raspberry Pi with Ansible, so even if the SD card gets corrupted, we can quickly set it up again and continue working with it.</p>
+<ol>
+<li>Flash image (Raspbian)</li>
+<li>Login with default credentials (pi/raspberry)</li>
+<li>Change default password</li>
+<li>Set up passwordless SSH</li>
+<li>Install packages you want to use</li>
+</ol>
+<p><strong>With Ansible, we can automate the process.</strong></p>
+<p>Let’s say we have a couple of Raspberry Pis, and after installing the operating system on them, we need the following packages to be installed on all devices:</p>
+<ul>
+<li>vim</li>
+<li>wget</li>
+<li>curl</li>
+<li>htop</li>
+</ul>
+<p>We could install these packages one by one on every device, but that would be tedious. Let Ansible do the job instead.</p>
+<p>First, we’ll need to create a project folder.</p>
+<pre><code class="language-bash hljs"><span class="hljs-built_in">mkdir</span> bootstrap-raspberry &amp;&amp; <span class="hljs-built_in">cd</span> bootstrap-raspberry
+</code></pre>
+<p>We need a config file and a hosts file. Let’s create them.</p>
+<pre><code class="language-bash hljs"><span class="hljs-built_in">touch</span> ansible.cfg
+<span class="hljs-built_in">touch</span> hosts 		// file extension not needed
+</code></pre>
+<p>Ansible can be configured using a config file named <code>ansible.cfg</code>. You can find an example with all the options <a href="https://github.com/ansible/ansible/blob/devel/examples/ansible.cfg">here</a>.</p>
+<p><strong>Security risk</strong>: if you load <code>ansible.cfg</code> from a world-writable folder, another user could place their own config file there and run malicious code. More about that <a href="https://docs.ansible.com/ansible/latest/reference_appendices/config.html#avoiding-security-risks-with-ansible-cfg-in-the-current-directory">here</a>.</p>
+<p>The lookup order of the configuration file will be searched for in the following order:</p>
+<ol>
+<li><code>ANSIBLE_CONFIG</code> (environment variable if set)</li>
+<li><code>ansible.cfg</code> (in the current directory)</li>
+<li><code>~/.ansible.cfg</code> (in the home directory)</li>
+<li><code>/etc/ansible/ansible.cfg</code></li>
+</ol>
+<p>So if we have an <code>ANSIBLE_CONFIG</code> environment variable, Ansible will ignore all the other files(2., 3., 4.). On the other hand, if we don’t specify a config file, <code>/etc/ansible/ansible.cfg</code> will be used.</p>
+<p>Now we’ll use a very simple config file with contents below:</p>
+<pre><code class="language-yml hljs language-yaml">[<span class="hljs-string">defaults</span>]
+<span class="hljs-string">inventory</span> <span class="hljs-string">=</span> <span class="hljs-string">hosts</span>
+<span class="hljs-string">host_key_checking</span> <span class="hljs-string">=</span> <span class="hljs-literal">False</span>
+</code></pre>
+<p>Here we tell Ansible that we use our <code>hosts</code> file as an inventory and to not check host keys. Ansible has host key checking enabled by default. If a host is reinstalled and has a different key in the <code>known_hosts</code> file, this will result in an error message until corrected. If a host is not initially in <code>known_hosts</code> this will result in prompting for confirmation interactively which is not favorable if you want to automate your processes.</p>
+<p>Now let’s open up the <code>hosts</code> file:</p>
+<pre><code class="language-yml hljs language-yaml">[<span class="hljs-string">raspberries</span>]
+<span class="hljs-number">192.168</span><span class="hljs-number">.0</span><span class="hljs-number">.74</span>
+<span class="hljs-number">192.168</span><span class="hljs-number">.0</span><span class="hljs-number">.75</span>
+<span class="hljs-number">192.168</span><span class="hljs-number">.0</span><span class="hljs-number">.76</span>
+
+[<span class="hljs-string">raspberries:vars</span>]
+<span class="hljs-string">ansible_connection=ssh</span>
+<span class="hljs-string">ansible_user=pi</span>
+<span class="hljs-string">ansible_ssh_pass=raspberry</span>
+</code></pre>
+<p>We list the IP address of the Raspberry Pis under the <code>[raspberries]</code> block and then assign variables to them.</p>
+<ul>
+<li><code>ansible_connection</code>: Connection type to the host. Defaults to <code>ssh</code>. See other connection types <a href="https://docs.ansible.com/ansible/latest/plugins/connection.html">here</a></li>
+<li><code>ansible_user</code>: The user name to use when connecting to the host</li>
+<li><code>ansible_ssh_password</code>: The password to use to authenticate to the host</li>
+</ul>
+<h2>Creating an Ansible Playbook</h2>
+<p>Now we’re done with the configuration of Ansible. We can start setting up the tasks we would like to automate. Ansible calls the list of these tasks “playbooks”.</p>
+<p>In our case, we want to:</p>
+<ol>
+<li>Change the default password,</li>
+<li>Add our SSH public key to <code>authorized_keys</code>,</li>
+<li>Install a few packages.</li>
+</ol>
+<p>Meaning, we’ll have 3 tasks in our playbook that we’ll call <code>pi-setup.yml</code>.</p>
+<p>By default, Ansible will attempt to run a playbook on all hosts in parallel, but the tasks in the playbook are run serially, one after another.</p>
+<p>Let’s take a look at our <code>pi-setup.yml</code> as an example:</p>
+<pre><code class="language-yml hljs language-yaml"><span class="hljs-bullet">-</span> <span class="hljs-attr">hosts:</span> <span class="hljs-string">all</span>
+ <span class="hljs-attr">become:</span> <span class="hljs-string">'yes'</span>
+ <span class="hljs-attr">vars:</span>
+   <span class="hljs-attr">user:</span>
+     <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">"pi"</span>
+       <span class="hljs-attr">password:</span> <span class="hljs-string">"secret"</span>
+       <span class="hljs-attr">ssh_key:</span> <span class="hljs-string">"ssh-rsa …"</span>
+   <span class="hljs-attr">packages:</span>
+     <span class="hljs-bullet">-</span> <span class="hljs-string">vim</span>
+     <span class="hljs-bullet">-</span> <span class="hljs-string">wget</span>
+     <span class="hljs-bullet">-</span> <span class="hljs-string">curl</span>
+     <span class="hljs-bullet">-</span> <span class="hljs-string">htop</span>
+ <span class="hljs-attr">tasks:</span>
+   <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Change</span> <span class="hljs-string">password</span> <span class="hljs-string">for</span> <span class="hljs-string">default</span> <span class="hljs-string">user</span>
+     <span class="hljs-attr">user:</span>
+       <span class="hljs-attr">name:</span> <span class="hljs-string">'"<span class="hljs-template-variable">{{ item.name }}</span>"'</span>
+       <span class="hljs-attr">password:</span> <span class="hljs-string">'"<span class="hljs-template-variable">{{ item.password | password_hash('sha512') }}</span>"'</span>
+       <span class="hljs-attr">state:</span> <span class="hljs-string">present</span>
+     <span class="hljs-attr">loop:</span>
+       <span class="hljs-bullet">-</span> <span class="hljs-string">'"<span class="hljs-template-variable">{{ user }}</span>"'</span>
+   <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Add</span> <span class="hljs-string">SSH</span> <span class="hljs-string">public</span> <span class="hljs-string">key</span>
+     <span class="hljs-attr">authorized_key:</span>
+       <span class="hljs-attr">user:</span> <span class="hljs-string">'"<span class="hljs-template-variable">{{ item.name }}</span>"'</span>
+       <span class="hljs-attr">key:</span> <span class="hljs-string">'"<span class="hljs-template-variable">{{ item.ssh_key }}</span>"'</span>
+     <span class="hljs-attr">loop:</span>
+       <span class="hljs-bullet">-</span> <span class="hljs-string">'"<span class="hljs-template-variable">{{ user }}</span>"'</span>
+   <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Ensure</span> <span class="hljs-string">a</span> <span class="hljs-string">list</span> <span class="hljs-string">of</span> <span class="hljs-string">packages</span> <span class="hljs-string">installed</span>
+     <span class="hljs-attr">apt:</span>
+       <span class="hljs-attr">name:</span> <span class="hljs-string">'"<span class="hljs-template-variable">{{ packages }}</span>"'</span>
+       <span class="hljs-attr">state:</span> <span class="hljs-string">present</span>
+   <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">All</span> <span class="hljs-string">done!</span>
+     <span class="hljs-attr">debug:</span>
+       <span class="hljs-attr">msg:</span> <span class="hljs-string">Packages</span> <span class="hljs-string">have</span> <span class="hljs-string">been</span> <span class="hljs-string">successfully</span> <span class="hljs-string">installed</span>
+</code></pre>
+<h2>Tearing down our Ansible Playbook Example</h2>
+<p>Let’s tear down this playbook.</p>
+<pre><code class="language-yaml hljs"><span class="hljs-attr">hosts:</span> <span class="hljs-string">all</span>
+<span class="hljs-attr">become:</span> <span class="hljs-literal">yes</span>
+<span class="hljs-attr">vars:</span>
+  <span class="hljs-attr">user:</span>
+{ <span class="hljs-attr">name:</span> <span class="hljs-string">“pi”</span>, <span class="hljs-attr">password:</span> <span class="hljs-string">“secret”</span>, <span class="hljs-attr">ssh_key:</span> <span class="hljs-string">“ssh-rsa</span> <span class="hljs-string">…”</span> }
+
+<span class="hljs-attr">tasks:</span> [ <span class="hljs-string">…</span> ]
+</code></pre>
+<p>This part defines fields that are related to the whole playbook:</p>
+<ol>
+<li><code>hosts: all</code>: Here we tell Ansible to execute this playbook on all hosts defined in our hostfile.</li>
+<li><code>become: yes</code>: Execute commands as sudo user. Ansible uses <a href="https://docs.ansible.com/ansible/latest/user_guide/become.html">privilege escalation systems</a> to execute tasks with root privileges or with another user’s permissions. This lets you <em>become</em> another user, hence the name.</li>
+<li><code>vars</code>: User defined variables. Once you’ve defined variables, you can use them in your playbooks using the <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_templating.html">Jinja2 templating system</a>.There are other sources <code>vars</code> can come from, such as variables discovered from the system. These variables are called <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variables-discovered-from-systems-facts">facts</a>.</li>
+<li><code>tasks</code>: List of commands we want to execute</li>
+</ol>
+<p>Let’s take another look at the first task we defined earlier without addressing the user modules’ details. Don’t fret if it’s the first time you hear the word “module” in relation to Ansible, we’ll discuss them in detail later.</p>
+<pre><code class="language-yaml hljs"><span class="hljs-attr">tasks:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Change</span> <span class="hljs-string">password</span> <span class="hljs-string">for</span> <span class="hljs-string">default</span> <span class="hljs-string">user</span> <span class="hljs-comment"># task</span>
+    <span class="hljs-attr">user:</span> { <span class="hljs-string">...</span> } <span class="hljs-comment"># module</span>
+    <span class="hljs-attr">loop:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">'<span class="hljs-template-variable">{{ user }}</span>'</span>
+</code></pre>
+<ol start="5">
+<li><code>name</code>: Short description of the task making our playbook self-documenting.</li>
+<li><code>user</code>: The module the task at hand configures and runs. Each module is an object encapsulating a desired state. These modules can control system resources, services, files or basically anything. For example, the documentation for the <code>user</code> module can be found <a href="https://docs.ansible.com/ansible/latest/modules/user_module.html">here</a>. It is used for managing user accounts and user attributes.</li>
+<li><code>loop</code>: Loop over variables. If you want to repeat a task multiple times with different inputs, <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html"><code>loops</code></a> come in handy. Let’s say we have 100 users defined as variables and we’d like to register them. With loops, we don’t have to run the playbook 100 times, just once.</li>
+</ol>
+<h2>Understanding the Ansible User Module</h2>
+<p>Zooming in on the user module:</p>
+<pre><code class="language-yaml hljs"><span class="hljs-attr">user:</span>  <span class="hljs-comment"># module</span>
+       <span class="hljs-attr">name:</span> <span class="hljs-string">“{{</span> <span class="hljs-string">item.name</span> <span class="hljs-string">}}”</span>
+       <span class="hljs-attr">password:</span> <span class="hljs-string">"<span class="hljs-template-variable">{{ item.password | password_hash('sha512') }}</span>"</span>
+       <span class="hljs-attr">state:</span> <span class="hljs-string">present</span>
+ <span class="hljs-attr">loop:</span>
+       <span class="hljs-bullet">-</span> <span class="hljs-string">"<span class="hljs-template-variable">{{ user }}</span>"</span>
+</code></pre>
+<p>Ansible comes with a number of modules, and each module encapsulates logic for a specific task/service. The user module above defines a user and its password. It doesn’t matter if it has to be created or if it’s already present and only its password needs to be changed, Ansible will handle it for us.</p>
+<p>Note that Ansible will only accept hashed passwords, so either you provide pre-hashed characters or - as above - use a hashing <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html">filter</a>.</p>
+<p>For the sake of simplicity, we stored our user’s password in our example playbook, but <strong>you should never store passwords in playbooks directly</strong>. Instead, you can use variable flags when running the playbook from CLI or use a password store such as <a href="https://docs.ansible.com/ansible/latest/user_guide/vault.html">Ansible Vault</a> or the <a href="https://docs.ansible.com/ansible/latest/plugins/lookup/onepassword.html">1Password module</a> .</p>
+<p>Most modules expose a <code>state</code> parameter, and it is best practice to explicitly define it when it’s possible. State defines whether the module should make something present (add, start, execute) or absent (remove, stop, purge). Eg. create or remove a user, or start / stop / delete a Docker container.</p>
+<p>Notice that the user module will be called at each iteration of the loop, passing in the current value of the <code>user</code> variable . The loop is not part of the module, it’s on the outer indentation level, meaning it’s task-related.</p>
+<h2>The Authorized Keys Module</h2>
+<p>The <code>authorized_keys</code> module adds or removes SSH authorized keys for a particular user’s account, thus enabling passwordless SSH connection.</p>
+<pre><code class="language-yaml hljs"><span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Add</span> <span class="hljs-string">SSH</span> <span class="hljs-string">public</span> <span class="hljs-string">key</span> <span class="hljs-comment"># task</span>
+  <span class="hljs-attr">authorized_key:</span>
+    <span class="hljs-attr">user:</span> <span class="hljs-string">'<span class="hljs-template-variable">{{ item.name }}</span>'</span>
+    <span class="hljs-attr">key:</span> <span class="hljs-string">'<span class="hljs-template-variable">{{ item.ssh_key }}</span>'</span>
+</code></pre>
+<p>The task above will take the specified <code>key</code> and adds it to the specified <code>user</code>’s <code>~/.ssh/authorized_keys</code> file, just as you would either by hand, or using <code>ssh-copy-id</code>.</p>
+<h2>The Apt module</h2>
+<p>We need a new <code>vars</code> block for the packages to be installed.</p>
+<pre><code>vars:
+   packages:
+   - vim
+   - wget
+   - curl
+   - htop
+
+ tasks:
+   - name: Ensure a list of packages installed
+     apt:
+       name: "{{ packages }}"
+       state: present
+</code></pre>
+<p>The <code>apt</code> module manages apt packages (such as for Debian/Ubuntu). The <code>name</code> field can take a list of packages to be installed. Here, we define a variable to store the list of desired packages to keep the task cleaner, and this also gives us the ability to overwrite the package list with command-line arguments if we feel necessary when we apply the playbook, without editing the actual playbook.</p>
+<p>The <code>state</code> field is set to be present, meaning that Ansible should install the package if it’s missing, or skip it, if it’s already present. In other words, it ensures that the package is present. It could be also set to <code>absent</code> (ensure that it’s not there), <code>latest</code> (ensure that it’s there and it’s the latest version, <code>build-deps</code> (ensure that it’s build dependencies are present), or <code>fixed</code> (attempt to correct a system with broken dependencies in place).</p>
+<h2>Let’s run our Ansible Playbook</h2>
+<p>Just to reiterate, here is the whole playbook together:</p>
+<pre><code class="language-yaml hljs"><span class="hljs-bullet">-</span> <span class="hljs-attr">hosts:</span> <span class="hljs-string">all</span>
+  <span class="hljs-attr">become:</span> <span class="hljs-literal">yes</span>
+  <span class="hljs-attr">vars:</span>
+   <span class="hljs-attr">user:</span>
+{ <span class="hljs-attr">name:</span> <span class="hljs-string">“pi”</span>, <span class="hljs-attr">password:</span> <span class="hljs-string">“secret”</span>, <span class="hljs-attr">ssh_key:</span> <span class="hljs-string">“ssh-rsa</span> <span class="hljs-string">…”</span> }
+   <span class="hljs-attr">packages:</span>
+   <span class="hljs-bullet">-</span> <span class="hljs-string">vim</span>
+   <span class="hljs-bullet">-</span> <span class="hljs-string">wget</span>
+   <span class="hljs-bullet">-</span> <span class="hljs-string">curl</span>
+   <span class="hljs-bullet">-</span> <span class="hljs-string">htop</span>
+ <span class="hljs-attr">tasks:</span>
+   <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Change</span> <span class="hljs-string">password</span> <span class="hljs-string">for</span> <span class="hljs-string">default</span> <span class="hljs-string">user</span>
+     <span class="hljs-attr">user:</span>
+       <span class="hljs-attr">name:</span> <span class="hljs-string">“{{</span> <span class="hljs-string">item.name</span> <span class="hljs-string">}}”</span>
+       <span class="hljs-attr">password:</span> <span class="hljs-string">"<span class="hljs-template-variable">{{ item.password | password_hash('sha512') }}</span>"</span>
+       <span class="hljs-attr">state:</span> <span class="hljs-string">present</span>
+     <span class="hljs-attr">loop:</span>
+       <span class="hljs-bullet">-</span> <span class="hljs-string">"<span class="hljs-template-variable">{{ user }}</span>"</span>
+   <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Add</span> <span class="hljs-string">SSH</span> <span class="hljs-string">public</span> <span class="hljs-string">key</span>
+     <span class="hljs-attr">authorized_key:</span>
+       <span class="hljs-attr">user:</span> <span class="hljs-string">"<span class="hljs-template-variable">{{ item.name }}</span>"</span>
+       <span class="hljs-attr">key:</span> <span class="hljs-string">"<span class="hljs-template-variable">{{ item.ssh_key }}</span>"</span>
+     <span class="hljs-attr">loop:</span>
+       <span class="hljs-bullet">-</span> <span class="hljs-string">"<span class="hljs-template-variable">{{ user }}</span>"</span>
+ <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Ensure</span> <span class="hljs-string">a</span> <span class="hljs-string">list</span> <span class="hljs-string">of</span> <span class="hljs-string">packages</span> <span class="hljs-string">installed</span>
+    <span class="hljs-attr">apt:</span>
+       <span class="hljs-attr">name:</span> <span class="hljs-string">"<span class="hljs-template-variable">{{ packages }}</span>"</span>
+       <span class="hljs-attr">state:</span> <span class="hljs-string">present</span>
+<span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">All</span> <span class="hljs-string">done!</span>
+     <span class="hljs-attr">debug:</span>
+       <span class="hljs-attr">msg:</span> <span class="hljs-string">Packages</span> <span class="hljs-string">have</span> <span class="hljs-string">been</span> <span class="hljs-string">successfully</span> <span class="hljs-string">installed</span>
+</code></pre>
+<p>Now we’re ready to run the playbook:</p>
+<pre><code>ansible-playbook pi-setup.yml
+</code></pre>
+<p>Or we can run it with overwriting the config file:</p>
+<pre><code class="language-bash hljs">$ ANSIBLE_HOST_KEY_CHECKING=False
+
+$ ansible-playbook - i “192.168.0.74, 192.168.0.75” ansible_user=john  ansible_ssh_pass=johnspassword” -e  ‘{“user”: [{ “name”: “pi”, “password”: “raspberry”, “state”: “present” }] }’ -e <span class="hljs-string">'{"packages":["curl","wget"]}'</span> pi-setup.yml
+</code></pre>
+<p>The command-line flags used in the snippet above are:</p>
+<ul>
+<li>-i (inventory): specifies the inventory. It can either be a comma-separated list as above, or an inventory file.</li>
+<li>-e (or --extra-vars): variables can be added or overridden through this flag. In our case we are overwriting the configuration laid out in our <code>hosts</code> file (<code>ansible_user</code>, <code>ansible_ssh_pass</code>) and the variables <code>user</code> and <code>packages</code> that we have previously set up in our playbook.</li>
+</ul>
+<h2>What to use Ansible for</h2>
+<p>Of course, Ansible is not used solely for setting up home-made servers.</p>
+<p>Ansible is used to manage VM fleets in bulk, making sure that each newly created VM has the same configuration as the others. It also makes it easy to change the configuration of the whole fleet together by applying a change to just one playbook.</p>
+<p>But Ansible can be used for a plethora of other tasks as well. If you have just a single server running in a cloud provider, you can define its configuration in a way that others can read and use easily. You can also define maintenance playbooks as well, such as creating new users and adding the SSH key of new employees to the server, so they can log into the machine as well.</p>
+<p>Or you can use <a href="https://github.com/ansible/awx">AWX</a> or <a href="https://docs.ansible.com/ansible/latest/reference_appendices/tower.html">Ansible Tower</a> to create a GUI based Linux server management system that provides a similar experience to what Windows Servers provide.</p>
+<p>*Stay tuned and subscribe to our newsletter! You can find the subscribe box in the left column, [on the top of the article].</p>
+<p>Next time, we’ll dive deeper into an enterprise use case of Ansible with AWX.</p>
+
+    </article>
+  </div>
+
+
+
+</article>
+
+<hr>
+
+<nav class="post-navigation">
+<ul>
+    <li>
+      ← Previous: <a href="/posts/hugo-static-site/" rel="prev">Static site with Hugo + Netlify deploy</a>
+    </li>
+  
+    <li>
+      <strong>Next: <a href="/posts/nodejs-network-performance/" rel="next">Improving Node.js network performance</a> →</strong>
+    </li>
+  
+</ul>
+</nav>
+
+    </main>
+
+    <footer></footer>
+
+    <!-- Current page: /posts/getting-started-with-ansible/ -->
+  
+
+</body></html>

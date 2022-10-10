@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn JavaScript for free</title>
+    <meta name="description" content="My experience learning JavaScript.">
+    <meta name="keywords" content="HTML, CSS, JavaScript, Typescript, Docker, Node.js, devops, React, framework, full-stack">
+    <meta name="author" content="Mate Boer (BMZ)">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link rel="stylesheet" href="/pagefind/pagefind-ui.css"><link href="https://fonts.googleapis.com/css2?family=Montserrat&amp;family=PT+Serif&amp;display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/styles.css">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Learn JavaScript for free">
+<meta property="og:description" content="My experience learning JavaScript.">
+<meta property="og:url" content="http://localhost:3000/posts/learn-javascript-for-free/">
+<meta name="twitter:title" content="Learn JavaScript for free">
+<meta name="twitter:description" content="My experience learning JavaScript.">
+<meta name="twitter:card" content="summary">
+<meta itemprop="name" content="Learn JavaScript for free">
+<meta itemprop="description" content="My experience learning JavaScript.">
+<meta name="description" content="My experience learning JavaScript.">
+<style>*, ::before, ::after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: #e5e7eb;
+}
+* {
+  --tw-ring-inset: var(--tw-empty,/*!*/ /*!*/);
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgba(59, 130, 246, 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+}
+:root {
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+}
+:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+:-moz-ui-invalid {
+  box-shadow: none;
+}
+::moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+::-webkit-inner-spin-button, ::-webkit-outer-spin-button {
+  height: auto;
+}
+::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit;
+}
+[type='search'] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+abbr[title] {
+  -webkit-text-decoration: underline dotted;
+  text-decoration: underline dotted;
+}
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+body {
+  margin: 0;
+  font-family: inherit;
+  line-height: inherit;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  line-height: 1.5;
+}
+hr {
+  height: 0;
+  color: inherit;
+  border-top-width: 1px;
+}
+h1, p, h2, h3, hr {
+  margin: 0;
+}
+h1, h2, h3 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+strong {
+  font-weight: bolder;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgba(0, 0, 0, var(--tw-bg-opacity));
+}
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+.flex-col {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+.flex-wrap {
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.items-center {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.font-bold {
+  font-weight: 700;
+}
+.h-full {
+  height: 100%;
+}
+.h-16 {
+  height: 4rem;
+}
+.h-0 {
+  height: 0px;
+}
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+.leading-10 {
+  line-height: 2.5rem;
+}
+.ml-auto {
+  margin-left: auto;
+}
+.mt-10 {
+  margin-top: 2.5rem;
+}
+.max-w-3xl {
+  max-width: 48rem;
+}
+.p-8 {
+  padding: 2rem;
+}
+.p-2 {
+  padding: 0.5rem;
+}
+.p-1 {
+  padding: 0.25rem;
+}
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
+}
+.tracking-tight {
+  letter-spacing: -0.025em;
+}
+.invisible {
+  visibility: hidden;
+}
+.w-full {
+  width: 100%;
+}
+.w-0 {
+  width: 0px;
+}
+.gap-x-8 {
+  -webkit-column-gap: 2rem;
+  -moz-column-gap: 2rem;
+  grid-column-gap: 2rem;
+  column-gap: 2rem;
+}
+.gap-y-4 {
+  -webkit-row-gap: 1rem;
+  -moz-row-gap: 1rem;
+  grid-row-gap: 1rem;
+  row-gap: 1rem;
+}
+@media (min-width: 640px) {
+  .sm\:invisible {
+    visibility: hidden;
+  }
+  .sm\:w-0 {
+    width: 0px;
+  }
+}
+@media (min-width: 768px) {
+  .md\:invisible {
+    visibility: hidden;
+  }
+  .md\:w-0 {
+    width: 0px;
+  }
+}
+@media (min-width: 1024px) {
+  .lg\:h-auto {
+    height: auto;
+  }
+  .lg\:visible {
+    visibility: visible;
+  }
+  .lg\:w-full {
+    width: 100%;
+  }
+}</style><script type="text/javascript" src="/pagefind/pagefind-ui.js"></script><script type="text/javascript">window.addEventListener('DOMContentLoaded', () => { new PagefindUI({"element":"#search","showImages":false,"showEmptyFilters":true,"resetStyles":false,"bundlePath":"/pagefind/","baseUrl":"/"}); });</script></head>
+  <body class="w-full h-full">
+    <nav class="flex flex-wrap bg-black text-white h-16 items-center px-4 gap-y-4 gap-x-8 navbar">
+      <a href="/">
+        <strong class="text-lg heading">bmzcodez.dev</strong>
+      </a>
+
+      <div class="max-w-3xl ml-auto w-0 sm:w-0 md:w-0 lg:w-full h-0 lg:h-auto invisible sm:invisible md:invisible lg:visible grow">
+        <div id="search"></div>
+      </div>
+    </nav>
+
+    <main class="body-post">
+      <article class="post" data-pagefind-body="">
+  <div class="flex flex-col items-center p-8">
+    <h1 class="text-2xl font-bold leading-10 tracking-tight text">
+      Learn JavaScript for free
+    </h1>
+    <nav class="post-tags">
+      
+        <a href="/tags/javascript/" class="p-2 tag-bg">javascript</a>
+      
+        <a href="/tags/self-learning/" class="p-2 tag-bg">self-learning</a>
+      
+    </nav>
+
+    <time class="p-1" datetime="2019-01-04 01:00:00">
+      January 4th, 2019
+    </time>
+    <article class="mt-10 w-full post-body" id="main">
+      <p>This is the first post of a series called 'Learn JavaScript for free' - in these chapters, you can read about the path of becoming a JavaScript developer and getting hired.</p>
+<h2>Why learn JavaScript Now?</h2>
+<p>Just in a nutshell:</p>
+<p>JavaScript is almost everywhere: in your browser, web apps, mobile apps, cloud services, even IoT devices.
+It’s easy to get started with it as all you need is a plain text editor and a browser.
+It is a beginner friendly language, with an awesome community around it.
+You can code both frontend and backend with JavaScript, which makes it extremely useful.</p>
+<h2>It’s hard to figure out where to Start</h2>
+<p>To become a JavaScript Engineer, you have to acquire various skills. For beginners, finding an optimal learning path is not apparent, especially with zero background. The depth of the trade seems to be infinite, so the question ‘Where to start?’ raised by beginners seems legit. There are other questions like</p>
+<ul>
+<li>‘What skills do I need to learn JavaScript?’,</li>
+<li>‘How to get a job?’,</li>
+<li>‘How to prepare for interviews?’.</li>
+</ul>
+<p>In this series, I’ll attempt to answer these questions.</p>
+<p>One thing to mention: this is not a specific JavaScript tutorial. You will not learn how to code from this post. Instead, it is an overview/roadmap of the path ahead of you to become a developer on your own.</p>
+<h2>About my JavaScript Path</h2>
+<p>To give some context, my relationship with development started in my teenage years. I’ve learned HTML and CSS just for fun and curiosity. After that, I built websites with content management systems like Wordpress, and that was it. I didn’t take it seriously: it was a hobby and nothing more.</p>
+<p>After graduation, I went to law school, worked for law offices, but after 5-6 years, I realized this is not the kind of career I imagined for myself. In retrospect, it was a useful experience, but I didn’t want to do it anymore. I needed something more creative. So I started learning JavaScript.</p>
+<p>Taking part in a programming school wasn’t an option: the basics are freely available on the internet, and I didn’t want someone to charge me for the same thing I can find in tutorials. I knew it wouldn’t be easy though, but I can say it was fun for me.</p>
+<p>I practiced at least 6-7 hours a day.</p>
+<p>I worked on hobby projects with React, but after 3 months, I started to feel the limitations of self-learning. There was nobody to tell me the best coding practices:</p>
+<ul>
+<li>“How do I structure an app?”</li>
+<li>“Which packages should I use?”</li>
+<li>“What makes sense learning and what is merely some glorified sugar coating?”</li>
+</ul>
+<p>Maybe I could have figured it out somehow by myself, but I realized that I need to work with people who already have many years of experience, so I can soak up the knowledge from them. The best way to be around people like that was to get hired, so I started sending my CV to companies. Many of them. Even for positions I was sure I wouldn’t be hired. Why not? If you can get through and be called in for an interview you can already learn from the questions you cannot answer or the coding challenges you cannot complete.</p>
+<p>After several attempts, my efforts paid off: I got hired by RisingStack as a junior developer which allowed me to develop my skills a lot faster compared to the time I spent with self-learning. During my first month - like every new recruit - I had to finish the internal <a href="https://github.com/RisingStack/risingstack-bootcamp">bootcamp</a>, which prepared me to work on client projects.</p>
+<p><strong>But this series is about what to do before you get hired, so you can get hired.</strong></p>
+<h2>Acquiring the Engineering Mindset</h2>
+<p>In this section, I’ll cover the skills necessary to start learning JavaScript.</p>
+<p>At least you should have a basic interest in web technologies, programming or IT itself. It will be cumbersome without that, and anyway, why start learning something that you are not interested in? Learning how to write code just for the money isn’t a good idea either.</p>
+<p>If you are reading this post, I assume you have the curiosity I’m talking about.</p>
+<p>Basic interest is enough for learning the fundamentals and maybe even for getting hired, but if you want to make progress especially from an entry level, it requires extra dedication and effort. This is maybe the most crucial point about it.</p>
+<p>Try to set reachable goals for yourself. Learn something new everyday.</p>
+<p>Beyond the efforts, the required mindset to be a successful developer is also worth mentioning.</p>
+<p>Source: https://www.7pace.com/blog/become-a-better-programmer-skills-development</p>
+<p>These are skills you will have to pick up as the time passes.</p>
+<p>One of the other most important must-have skill is to know how to Google, a.k.a find solutions to a problem. I’ve seen a lot of people struggling to search for an obstacle that is so obvious to solve with a bit of inspection. There is an answer for the 99% of the problems that a beginner is going to face.</p>
+<p>You just have to find the solution and apply it. It’s that simple (at the beginning). If you didn’t find the answer, probably you didn’t search the right way. So start getting to know how to Google correctly, and make a ‘friendship’ with StackOverflow and <a href="https://developer.mozilla.org/en-US/">MDN</a>.</p>
+<p>Do not fear making mistakes. It’s part of the learning process.</p>
+<p>With respect to the subject above mentioned, let’s move on to the next section.</p>
+<h2>JavaScript Fundamentals</h2>
+<h3>Getting started with the web</h3>
+<p>Before you start to learn JavaScript, it is highly advised to get familiar with <a href="https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web">HTML, CSS and how the web</a> works.</p>
+<p>HTML and CSS can be picked up really fast. Build a simple static website, experiment a little bit. Once you are comfortable with the concepts of these technologies, you can move on..</p>
+<h3>Intro to Programming Basics</h3>
+<p>As HTML and CSS are not programming languages, so it is time to get some theoretical knowledge about programming. There are some books that I recommend:
+<a href="https://github.com/getify/You-Dont-Know-JS/tree/master/up%20%26%20going">You Don't Know JS: Up &amp; Going</a>. (for beginning)
+It is a good introduction into programming and into JavaScript. <a href="https://github.com/getify/You-Dont-Know-JS">YDKJS</a> is a series of books diving deep into the core mechanisms of the JavaScript language.
+<a href="http://speakingjs.com/es5/index.html">Speaking JavaScript</a>
+<a href="https://eloquentjavascript.net/">Eloquent JavaScript</a>
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide">MDN JS Guide</a>
+These books and tutorials should give you a basic understanding of the language.</p>
+<h3>Learn using the Command line</h3>
+<p>Getting to know the command line is necessary. Learn the basic commands like how to enter/leave a directory, and edit/copy/move/remove files. You will use them a lot - so why not save time for yourself by learning them at the beginning?</p>
+<h2>Start with vanilla JS, learn the frameworks and advanced concepts later.</h2>
+<p>Forget these cool words like React, Vue, Angular, Node.js, OOP, Webpack, functional programming, etc. In my experience, until you don’t know the basics, it is absolutely unwanted to confuse your mind with these advanced concepts and frameworks. Be patient, you will get there soon.</p>
+<p>Get the <a href="https://www.w3schools.com/js/">basics</a> right first, and start coding ASAP with <a href="https://stackoverflow.com/questions/20435653/what-is-vanillajs">Vanilla JS</a>.</p>
+<h3>Setup IDE</h3>
+<p>Setting up an IDE with a decent config will make your life easier. My personal favourite is VSCode, but there are other amazing IDE’s like Atom, WebStorm, Brackets or Sublime.</p>
+<h3>Choose a project to build</h3>
+<p>Your project can be a todo-app, a calculator or basically anything. Don’t choose very complex projects, it’s good to have a sense of achievement in the beginning. As you develop your project, you’ll have lot of questions. Use MDN, StackOverflow and Google. As I said above, there is an answer almost for all questions a beginner going to face. In case of you have no idea what kind of project to build, I provide some links below which maybe help with the decision.
+https://www.codementor.io/npostolovski/40-side-project-ideas-for-software-engineers-g8xckyxef
+https://skillcrush.com/2018/06/18/projects-you-can-do-with-javascript/
+https://medium.com/@GarrettLevine/5-projects-to-complete-when-starting-to-learn-front-end-web-development-48e8a1ce3178</p>
+<h3>Learn from your mistakes</h3>
+<p>Learning from mistakes is also an essential part of the process. Don’t be afraid to break the code. A failure is an opportunity to prevent future failures, and it makes you curious how to solve the problem.</p>
+<h3>Moving Forward</h3>
+<p>I think you can get familiar with these things I outlined within 1-2 months if you do some exercise every day. Once you think you are confident with this knowledge, and made some hobby projects, and read the books, you can do a level up, and choose a framework and set Node.js in motion as well.</p>
+<p>In the meantime you should explore more stuff about JavaScript like articles, newsletters, podcasts, YouTube channels, and a lot of tutorials.</p>
+<p>If you have accomplished all of the above, you can start getting to know <a href="https://docs.npmjs.com/getting-started/what-is-npm">NPM</a>, the package manager of JavaScript and Node.js.</p>
+<h2>Summary and Next Up</h2>
+<p>In the next chapter, I’ll continue with an overview of the JavaScript ecosystem, and a roadmap of frontend development (React, Vue.js, etc.), a backend roadmap for Node, and with some tips to get hired.</p>
+
+    </article>
+  </div>
+
+
+
+</article>
+
+<hr>
+
+<nav class="post-navigation">
+<ul>
+    <li>
+      <strong>Next: <a href="/posts/pdf-from-html-javascript/" rel="next">Generating PDF from HTML with JavaScript</a> →</strong>
+    </li>
+  
+</ul>
+</nav>
+
+    </main>
+
+    <footer></footer>
+
+    <!-- Current page: /posts/learn-javascript-for-free/ -->
+  
+
+</body></html>

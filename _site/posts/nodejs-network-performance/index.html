@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Improving Node.js network performance</title>
+    <meta name="description" content="In this post, I’ll walk you through what kind of bottlenecks I've found under high load, and how to address them.">
+    <meta name="keywords" content="HTML, CSS, JavaScript, Typescript, Docker, Node.js, devops, React, framework, full-stack">
+    <meta name="author" content="Mate Boer (BMZ)">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link rel="stylesheet" href="/pagefind/pagefind-ui.css"><link href="https://fonts.googleapis.com/css2?family=Montserrat&amp;family=PT+Serif&amp;display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/styles.css">
+  <style>*, ::before, ::after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: #e5e7eb;
+}
+* {
+  --tw-ring-inset: var(--tw-empty,/*!*/ /*!*/);
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgba(59, 130, 246, 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+}
+:root {
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+}
+:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+:-moz-ui-invalid {
+  box-shadow: none;
+}
+::moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+::-webkit-inner-spin-button, ::-webkit-outer-spin-button {
+  height: auto;
+}
+::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit;
+}
+[type='search'] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+abbr[title] {
+  -webkit-text-decoration: underline dotted;
+  text-decoration: underline dotted;
+}
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+body {
+  margin: 0;
+  font-family: inherit;
+  line-height: inherit;
+}
+code, pre {
+  font-size: 1em;
+  font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  line-height: 1.5;
+}
+hr {
+  height: 0;
+  color: inherit;
+  border-top-width: 1px;
+}
+h1, h2, p, h3, pre, hr {
+  margin: 0;
+}
+h1, h2, h3 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+strong {
+  font-weight: bolder;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgba(0, 0, 0, var(--tw-bg-opacity));
+}
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+.flex-col {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+.flex-wrap {
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.items-center {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.font-bold {
+  font-weight: 700;
+}
+.h-full {
+  height: 100%;
+}
+.h-16 {
+  height: 4rem;
+}
+.h-0 {
+  height: 0px;
+}
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+.leading-10 {
+  line-height: 2.5rem;
+}
+.ml-auto {
+  margin-left: auto;
+}
+.mt-10 {
+  margin-top: 2.5rem;
+}
+.max-w-3xl {
+  max-width: 48rem;
+}
+.p-8 {
+  padding: 2rem;
+}
+.p-2 {
+  padding: 0.5rem;
+}
+.p-1 {
+  padding: 0.25rem;
+}
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
+}
+.tracking-tight {
+  letter-spacing: -0.025em;
+}
+.invisible {
+  visibility: hidden;
+}
+.w-full {
+  width: 100%;
+}
+.w-0 {
+  width: 0px;
+}
+.gap-x-8 {
+  -webkit-column-gap: 2rem;
+  -moz-column-gap: 2rem;
+  grid-column-gap: 2rem;
+  column-gap: 2rem;
+}
+.gap-y-4 {
+  -webkit-row-gap: 1rem;
+  -moz-row-gap: 1rem;
+  grid-row-gap: 1rem;
+  row-gap: 1rem;
+}
+@media (min-width: 640px) {
+  .sm\:invisible {
+    visibility: hidden;
+  }
+  .sm\:w-0 {
+    width: 0px;
+  }
+}
+@media (min-width: 768px) {
+  .md\:invisible {
+    visibility: hidden;
+  }
+  .md\:w-0 {
+    width: 0px;
+  }
+}
+@media (min-width: 1024px) {
+  .lg\:h-auto {
+    height: auto;
+  }
+  .lg\:visible {
+    visibility: visible;
+  }
+  .lg\:w-full {
+    width: 100%;
+  }
+}</style><script type="text/javascript" src="/pagefind/pagefind-ui.js"></script><script type="text/javascript">window.addEventListener('DOMContentLoaded', () => { new PagefindUI({"element":"#search","showImages":false,"showEmptyFilters":true,"resetStyles":false,"bundlePath":"/pagefind/","baseUrl":"/"}); });</script></head>
+  <body class="w-full h-full">
+    <nav class="flex flex-wrap bg-black text-white h-16 items-center px-4 gap-y-4 gap-x-8 navbar">
+      <a href="/">
+        <strong class="text-lg heading">bmzcodez.dev</strong>
+      </a>
+
+      <div class="max-w-3xl ml-auto w-0 sm:w-0 md:w-0 lg:w-full h-0 lg:h-auto invisible sm:invisible md:invisible lg:visible grow">
+        <div id="search"></div>
+      </div>
+    </nav>
+
+    <main class="body-post">
+      <article class="post" data-pagefind-body="">
+  <div class="flex flex-col items-center p-8">
+    <h1 class="text-2xl font-bold leading-10 tracking-tight text">
+      Improving Node.js network performance
+    </h1>
+    <nav class="post-tags">
+      
+        <a href="/tags/nodejs/" class="p-2 tag-bg">nodejs</a>
+      
+        <a href="/tags/network/" class="p-2 tag-bg">network</a>
+      
+        <a href="/tags/http/" class="p-2 tag-bg">http</a>
+      
+        <a href="/tags/performance/" class="p-2 tag-bg">performance</a>
+      
+    </nav>
+
+    <time class="p-1" datetime="2022-07-04 02:00:00">
+      July 4th, 2022
+    </time>
+    <article class="mt-10 w-full post-body" id="main">
+      <h2>TLDR</h2>
+<ul>
+<li>It’s almost a cliché, but never block the event loop</li>
+<li>Use <code>Keep-Alive</code> HTTP Agent, even with AWS services (use <code>agentkeepalive</code> npm package)</li>
+<li>Use caching when possible</li>
+</ul>
+<h2>Inspiration of this article</h2>
+<p>At my company we have to deal with high network loads, these are the findings how we improved the performance of our services.</p>
+<p>So let’s dive in.</p>
+<h2>The libuv thread pool</h2>
+<p><a href="https://nodejs.org/en/docs/meta/topics/dependencies/#libuv">https://nodejs.org/en/docs/meta/topics/dependencies/#libuv</a></p>
+<p>Node uses the thread pool to handle operations defined in the following modules:</p>
+<ul>
+<li><strong>fs</strong>: file system I/O operations</li>
+<li><strong>dns</strong>: DNS operations</li>
+<li><strong>zlib</strong>: compression operations</li>
+<li><strong>crypto</strong>: cryptography operations</li>
+</ul>
+<p>These operations appear to be asynchronous in a JavaScript perspective, but they're actually internally implemented as synchronous calls within node's internal libuv threadpool (which by default has only 4 threads). So if we have high traffic, and if you do for an example &gt;4 DNS lookups in parallel then they’re going to block the libuv threadpool, even though they look like async IO.</p>
+<h2>The DNS problem</h2>
+<p>As stated above, DNS resolving is a synchronous task in Node.js handled by the libuv thread pool. It’s not a problem until you have high amount of network traffic.</p>
+<p>Also, there is no DNS caching in Node.js by default.</p>
+<p><code>dns.lookup()</code></p>
+<p>This is the function Node.js is using internally for resolving domain names.</p>
+<p>It is implemented as a synchronous call to getaddrinfo(3) that runs on libuv's threadpool. Because libuv's threadpool has a fixed size, it means that if for whatever reason the call to getaddrinfo(3) takes a long time, other operations that could run on libuv's threadpool will experience degraded performance.</p>
+<h3>Possible solutions</h3>
+<ul>
+<li>use DNS caching, use a http client library that is capable of it (https://github.com/sindresorhus/got)</li>
+<li><a href="https://kubernetes.io/docs/tasks/administer-cluster/nodelocaldns/">https://kubernetes.io/docs/tasks/administer-cluster/nodelocaldns/</a></li>
+<li>use <code>dns.resolve()</code>, which is not handled by the thread pool</li>
+<li>apply <code>Keep-Alive</code> HTTP Agent</li>
+<li>pro tip: add a <code>.</code> to the end of absolute url (<code>https://facebook.com.</code>)
+<ul>
+<li>skip ndots</li>
+</ul>
+</li>
+</ul>
+<p>If you want to understand more deeply how DNS resolving works, check out this DNS zine book.</p>
+<p><a href="https://wizardzines.com/zines/dns/">https://wizardzines.com/zines/dns/</a></p>
+<h2>Keep-Alive HTTP agent</h2>
+<p>By default, HTTP creates a new TCP connection for every request. &nbsp;<a href="https://en.wikipedia.org/wiki/HTTP_persistent_connection">HTTP keep-alive</a>
+allows HTTP clients to re-use connections for multiple requests, and relies on timeout configurations on both the client and target server to decide when to close open TCP sockets.</p>
+<p>With implementing <code>Keep-Alive</code> we can reuse the connection, therefore the amount DNS lookups are reduced.</p>
+<h3>Node</h3>
+<p>Using keep-alive:</p>
+<ul>
+<li>first install <code>agentkeepalive</code> (https://github.com/node-modules/agentkeepalive)</li>
+</ul>
+<pre><code class="language-js hljs language-javascript">npm i agentkeepalive
+</code></pre>
+<ul>
+<li>apply agent to axios</li>
+</ul>
+<pre><code class="language-js hljs language-javascript"><span class="hljs-keyword">import</span> <span class="hljs-title class_">KeepAliveAgent</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'agentkeepalive'</span>
+
+<span class="hljs-keyword">const</span> keepAliveAgent = <span class="hljs-keyword">new</span> <span class="hljs-title class_">KeepAliveAgent</span>({ <span class="hljs-attr">keepAlive</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">timeout</span>: <span class="hljs-number">10000</span> })
+
+<span class="hljs-keyword">const</span> instance = axios.<span class="hljs-title function_">create</span>({
+  <span class="hljs-attr">baseURL</span>: <span class="hljs-string">'https://some-domain.com/api/'</span>,
+  <span class="hljs-attr">timeout</span>: <span class="hljs-number">1000</span>,
+  <span class="hljs-attr">headers</span>: {<span class="hljs-string">'X-Custom-Header'</span>: <span class="hljs-string">'foobar'</span>},
+  <span class="hljs-attr">httpAgent</span>: keepAliveAgent,
+});
+</code></pre>
+<p><code>agentkeepalive</code> will take care of closing the client’s connection before the server does. It eliminates most of the <code>ECONNRESET</code> and <code>socket hang up</code> errors.</p>
+<p>Switching to HTTP 2 in the future will also give a performance boost.</p>
+<h3>AWS services</h3>
+<p><a href="https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/node-reusing-connections.html">https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/node-reusing-connections.html</a></p>
+<p>Enabling keep-alive for AWS services is very simple. Just add <code>AWS_NODEJS_CONNECTION_REUSE_ENABLED=1</code> env to the service.</p>
+<p>Since it is enabled, P99 latency rarely go above 100ms towards AWS.</p>
+<h2>Caching</h2>
+<p>Implement caching whenever possible. You can easily do caching with the library below.
+<a href="https://www.npmjs.com/package/p-memoize">p-memoize</a></p>
+<p><strong>Knowledge-base</strong>:</p>
+<p><a href="https://connectreport.com/blog/tuning-http-keep-alive-in-node-js/#:~:text=HTTP%20keep%2Dalive%20allows%20HTTP,In%20Node">https://connectreport.com/blog/tuning-http-keep-alive-in-node-js/#:~:text=HTTP keep-alive allows HTTP,In Node</a>.</p>
+<p><a href="https://medium.com/ssense-tech/reduce-networking-errors-in-nodejs-23b4eb9f2d83">https://medium.com/ssense-tech/reduce-networking-errors-in-nodejs-23b4eb9f2d83</a></p>
+<p><a href="https://httptoolkit.tech/blog/configuring-nodejs-dns/">https://httptoolkit.tech/blog/configuring-nodejs-dns/</a></p>
+<p><a href="https://nodejs.org/api/dns.html">https://nodejs.org/api/dns.html</a></p>
+<p><a href="https://medium.com/swlh/solving-node-dns-issues-and-other-things-5051d8526cac">https://medium.com/swlh/solving-node-dns-issues-and-other-things-5051d8526cac</a></p>
+
+    </article>
+  </div>
+
+
+
+</article>
+
+<hr>
+
+<nav class="post-navigation">
+<ul>
+    <li>
+      ← Previous: <a href="/posts/getting-started-with-ansible/" rel="prev">Getting Started With Ansible</a>
+    </li>
+  
+</ul>
+</nav>
+
+    </main>
+
+    <footer></footer>
+
+    <!-- Current page: /posts/nodejs-network-performance/ -->
+  
+
+</body></html>

@@ -1,0 +1,7 @@
+<ul class="postList">
+  {% for post in postslist %}
+  <li class="postList-post">
+    {{ comp.card(post) | safe }}
+  </li>
+{% endfor %}
+</ul>

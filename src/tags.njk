@@ -1,0 +1,12 @@
+---
+layout: layouts/base.njk
+---
+<div class="flex flex-col gap-4 p-4">
+  <h1 class="text-2xl">Tags</h1>
+
+  <div class="flex flex-wrap gap-2">
+    {% for page in search.pages("type=tag", "tag") %}
+      <a href="{{ page.data.url }}" class="tag-bg p-4">{{ page.data.tag }}</a>
+    {% endfor %}
+  </div>
+</div>

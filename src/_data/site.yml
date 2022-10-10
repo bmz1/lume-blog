@@ -1,0 +1,13 @@
+title: bmzcodez.dev
+description: Hi! I am BMZ, a full-stack web developer. I am writing about my experiences with web technologies. Mostly JavaScript, TypeScript, and Nodejs.
+author:
+  name: BMZ
+metas:
+  site: bmzcodez.dev
+  twitter: "@_bmz1"
+  icon: /favicon.ico
+  lang: en
+  generator: true
+
+mergedKeys:
+  metas: object
