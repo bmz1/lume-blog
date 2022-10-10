@@ -4,12 +4,12 @@ date: 2019-01-04
 slug: 'learn-javascript-for-free'
 author: 'bmz'
 description: 'My experience learning JavaScript.'
-image: '/img/learn.jpg'
+image: 'img/learn.jpg'
 tags: ['javascript', 'self-learning']
 metas:
   title: 'Learn JavaScript for free'
   description: 'My experience learning JavaScript.'
-  image: image: 'img/learn.jpg'
+  image: 'img/learn.jpg'
 ---
 
 This is the first post of a series called 'Learn JavaScript for free' - in these chapters, you can read about the path of becoming a JavaScript developer and getting hired.

@@ -7,7 +7,7 @@ tags: ['nodejs', 'network', 'http', 'performance']
 description: "In this post, I’ll walk you through what kind of bottlenecks I've found under high load, and how to address them."
 metas:
   title: 'Improving Node.js network performance'
-  description: 'In this post, I’ll walk you through what kind of bottlenecks I've found under high load, and how to address them.'
+  description: "In this post, I’ll walk you through what kind\nbottlenecks I've found under high load, and how to address\nthem."
   image: 'img/performance.jpg'
 
 ---
